@@ -1,0 +1,222 @@
+{#<!DOCTYPE html>#}
+{#  <html lang="en">#}
+{#  <head>#}
+{#      <meta charset="UTF-8">#}
+{#      <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#      <title>Login Page</title>#}
+{#      <!-- 引入CSS文件 -->#}
+{#      <link rel="stylesheet" type="text/css" href="../static/css_file/2.css">#}
+{#      <!-- 引入javascript文件 -->#}
+{#      <script type="text/javascript" src="./js_file/test.js">// alert('123dsa')</script>#}
+{#  </head>#}
+{#  <body>#}
+{#      <!-- ... 页面内容 ... -->#}
+{#      <div id="login_box">#}
+{#        <h2>LOGIN</h2>#}
+{#        <div id="input_box">#}
+{#            <label>#}
+{#                <input type="text" id="username" placeholder="请输入用户名">#}
+{#            </label>#}
+{#        </div>#}
+{#        <div class="input_box">#}
+{#            <label>#}
+{#                <input type="password" id="password" placeholder="请输入密码">#}
+{#            </label>#}
+{#        </div>#}
+{#        <button id="login_box"> 登录</button><br>#}
+{#      </div>#}
+{##}
+{#      <!-- ... 其他内容 ... -->#}
+{#  </body>#}
+{#  </html>#}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background: url('https://www.hdu.edu.cn/_upload/tpl/00/1e/30/template30/htmlRes/common_res/banner.jpg') no-repeat;
+      background-size: 100% 130%;
+    }
+
+    #login_box {
+      width: 20%;
+      height: 400px;
+      background-color: #00000060;
+      margin: auto;
+      margin-top: 10%;
+      text-align: center;
+      border-radius: 10px;
+      padding: 50px 50px;
+    }
+
+    h2 {
+      color: #ffffff90;
+      margin-top: 5%;
+    }
+
+    #input-box {
+      margin-top: 5%;
+    }
+
+    span {
+      color: #fff;
+    }
+
+    input {
+      border: 0;
+      width: 60%;
+      font-size: 15px;
+      color: #fff;
+      background: transparent;
+      border-bottom: 2px solid #fff;
+      padding: 5px 10px;
+      outline: none;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 50px;
+      width: 60%;
+      height: 30px;
+      border-radius: 10px;
+      border: 0;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      font-size: 15px;
+      background-image: linear-gradient(to right, #30cfd0, #330867);
+    }
+
+    #sign_up {
+      margin-top: 45%;
+      margin-left: 60%;
+    }
+
+    a {
+      color: #b94648;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="login_box">
+    <h2>LOGIN</h2>
+    <div id="input_box">
+      <input type="text" id="username" placeholder="请输入用户名">
+    </div>
+    <div class="input_box">
+      <input type="password" id="password" placeholder="请输入密码">
+    </div>
+    <button id="login-btn">登录</button><br>
+  </div>
+
+<script>
+  document.getElementById('login-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    // 预设的用户名和密码
+    var presetUsername = 'admin';
+    var presetPassword = 'password';
+
+    if (username === presetUsername && password === presetPassword) {
+      // 登录成功，跳转到menu.html
+      window.location.href = 'menu.html';
+    } else {
+      alert('登录失败，请检查您的用户名和密码！');
+    }
+  });
+</script>
+<script type="module" src="./js_file/sql.js"></script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+
+</head>
+
+<body>
+  <div id="login_box">
+    <h2>LOGIN</h2>
+    <div id="input_box">
+      <input type="text" id="username" placeholder="请输入用户名">
+    </div>
+    <div class="input_box">
+      <input type="password" id="password" placeholder="请输入密码">
+    </div>
+    <button id="login-btn">登录</button><br>
+  </div>
+
+{#  <script>#}
+{#    document.getElementById('login-btn').addEventListener('click', function(event) {#}
+{#    event.preventDefault();#}
+{##}
+{#        const username = document.getElementById('username').value;#}
+{#        const password = document.getElementById('password').value;#}
+{##}
+{#        // 预设的用户名和密码#}
+{#        const presetUsername = 'admin';#}
+{#        const presetPassword = 'password';#}
+{##}
+{##}
+{#        if (username === presetUsername && password === presetPassword) {#}
+{#      // 登录成功，跳转到menu.html#}
+{#      window.location.href = '/menu';#}
+{#    } else {#}
+{#      alert('登录失败，请检查您的用户名和密码！');#}
+{#    }#}
+{#  });#}
+{#  </script>#}
+  <script>
+      document.getElementById('login-btn').addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('/login_action', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username, password: password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 登录成功，跳转到menu.html
+          window.location.href = '/menu';
+        } else {
+          alert('登录失败，请检查您的用户名和密码！');
+        }
+      })
+      .catch(error => {
+        alert('登录失败，请检查您的用户名和密码！');
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
