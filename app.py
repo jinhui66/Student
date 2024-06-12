@@ -8,7 +8,7 @@ from blueprints.login import bp as login_bp
 from blueprints.menu import bp as menu_bp
 from exts import db
 
-## github: https://github.com/jinhui66/Student.git
+# github: https://github.com/jinhui66/Student.git
 app = Flask(__name__)
 
 app.config.from_object(config)
