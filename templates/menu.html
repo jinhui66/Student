@@ -14,7 +14,7 @@
 
         <div class="form-container">
             <button type="button" onclick="">导入表格</button>
-            <button type="button" onclick="">重置表格</button>
+            <button type="button" onclick="resetTable()">重置表格</button>
             <button type="button" onclick="clearTable()">清空表格</button>
             <button type="button" onclick="saveTable()">保存表格</button>
         </div>
@@ -31,7 +31,7 @@
             </tr>
             {% for result in results %}
                 <tr class="center">
-                    <td>{{result.InfoID}}</td>
+                    <td id = '{{result.InfoID}}'>{{result.InfoID}}</td>
                     <td>{{result.InfoContent}}</td>
                     <td>{{result.InfoTime}}</td>
                     <td>{{result.InfoLocation}}</td>
@@ -72,7 +72,7 @@
                       'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({id: id,name: name, attribute1: attribute1, attribute2: attribute2, attribute3: attribute3, attribute4: attribute4})
-                  })
+                })
                 .then(response => response.json())
                 .then(data => {
                 if (data.status == 'success') {
@@ -130,7 +130,31 @@
 
             function deleteRow(btn) {
                 var row = btn.parentNode.parentNode;
-                row.parentNode.removeChild(row);
+
+                var InfoIDTd = row.querySelector('td:first-child'); // 或者使用 'td:nth-child(1)'
+                var InfoID = InfoIDTd ? InfoIDTd.textContent.trim() : null; // 获取文本内容并去除前后空格
+
+
+                fetch('/delete_action', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({InfoID: InfoID})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        row.parentNode.removeChild(row);
+                    }else{
+                        alert('删除失败');
+                    }
+                })
+                .catch(error =>{
+                    alert('程序出错')
+                })
+
+
             }
 
             function saveTable() {
@@ -158,12 +182,47 @@
                 localStorage.removeItem('tableData');
                 var table = document.querySelector('.main');
 
-                // Keep the header row
-                while (table.rows.length > 1) {
-                    table.deleteRow(1);
-                }
+                fetch('/clearTable_action', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        // Keep the header row
+                        while (table.rows.length > 1) {
+                            table.deleteRow(1);
+                        }
+                    }else{
+                        alert('清除失败');
+                    }
+                })
+                .catch(error =>{
+                    alert('程序出错')
+                })
 
-                alert('表格已重置！');
+            }
+
+            function resetTable(){
+
+                fetch('/resetTable_action',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        window.location.href = '/menu'
+                    }else{
+                        alert('重置失败');
+                    }
+
+                })
+
             }
         </script>
     </body>

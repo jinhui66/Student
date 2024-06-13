@@ -37,3 +37,33 @@ def add_action():
 
     status = 'success'
     return jsonify({'status':status})
+
+@bp.route('/delete_action', methods = ['GET','POST'])
+def delete_action():
+    data = request.get_json()
+    InfoID = data.get('InfoID')
+    # print(InfoID)
+    sql = text('delete from DormInfo where InfoID = :InfoID')
+    db.session.execute(sql,{'InfoID':InfoID})
+    db.session.commit()
+    return jsonify({'status':'success'})
+
+@bp.route('/clearTable_action', methods = ['GET','POST'])
+def clearTable_action():
+
+    db.session.execute(text('delete from DormInfo;'))
+    db.session.commit()
+
+    return jsonify({'status':'success'})
+
+@bp.route('/resetTable_action', methods = ['GET','POST'])
+def resetTable_action():
+
+    db.session.execute(text('delete from DormInfo;'))
+    sql = text("INSERT INTO DormInfo (InfoID, InfoContent, InfoTime, InfoLocation, DormManagerID,CheckNo) VALUES ('Info001', '停电通知', '2024-05-23', '14栋', 'DM001',2), ('Info002', '消防演习', '2024-06-01', '15栋', 'DM002',1);")
+    db.session.execute(sql)
+    db.session.commit()
+
+    return jsonify({'status':'success'})
+
+
