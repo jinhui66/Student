@@ -151,7 +151,7 @@
                     }
                 })
                 .catch(error =>{
-                    alert('程序出错')
+                    alert('程序出错');
                 })
 
 
@@ -200,7 +200,7 @@
                     }
                 })
                 .catch(error =>{
-                    alert('程序出错')
+                    alert('程序出错');
                 })
 
             }
@@ -217,12 +217,16 @@
                 .then(data => {
                     if (data.status == 'success') {
                         window.location.href = '/menu'
+
+
                     }else{
                         alert('重置失败');
                     }
 
                 })
-
+                .catch(error => {
+                    alert('程序出错');
+                })
             }
         </script>
     </body>
